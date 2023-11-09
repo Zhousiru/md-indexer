@@ -32,3 +32,19 @@ index
     ...
 ...
 ```
+
+## Usage
+
+```
+md-indexer [OPTIONS] --input <INPUT> --output <OUTPUT> --size <SIZE>
+```
+
+```
+Options:
+  -i, --input <INPUT>    The input base path of documents
+  -o, --output <OUTPUT>  The output base path of index files
+      --size <SIZE>      Maximum number of documents in a single page file
+      --with-content     Include document content in index files
+      --with-summary     Include document summary (marked with `<!--more-->`) in index files
+  -h, --help             Print help
+```
