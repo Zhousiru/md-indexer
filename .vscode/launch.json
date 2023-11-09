@@ -1,0 +1,33 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug executable 'md-indexer'",
+      "cargo": {
+        "args": ["build", "--bin=md-indexer", "--package=md-indexer"],
+        "filter": {
+          "name": "md-indexer",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug unit tests in executable 'md-indexer'",
+      "cargo": {
+        "args": ["test", "--no-run", "--bin=md-indexer", "--package=md-indexer"],
+        "filter": {
+          "name": "md-indexer",
+          "kind": "bin"
+        }
+      },
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
