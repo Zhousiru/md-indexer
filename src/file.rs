@@ -41,6 +41,11 @@ pub fn generate_pages_from_path(
             continue;
         }
 
+        if !item_key.ends_with(".md") {
+            // Skip non-Markdown files.
+            continue;
+        }
+
         let doc = Rc::new(Document::from_key(&item_key, base_path, options)?);
 
         current_page.add_document(doc);
