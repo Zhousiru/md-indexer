@@ -1,6 +1,6 @@
 # md-indexer
 
-An opinionated static API generator for Markdown documents
+An opinionated static API generator for Markdown documents.
 
 **From**
 
@@ -30,7 +30,6 @@ index
     page-1.json <- Index page of `news-x.md`
     page-2.json
     ...
-...
 ```
 
 ## Usage
@@ -48,3 +47,11 @@ Options:
       --with-summary     Include document summary (marked with `<!--more-->`) in index files
   -h, --help             Print help
 ```
+
+## Predefined Frontmatter
+
+### `date`
+
+Date string in RFC3339.
+
+Documents will be sorted by date in descending order. If `date` does not exist, the document will be pinned.
