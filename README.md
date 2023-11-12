@@ -34,7 +34,7 @@ index
 
 ## Usage
 
-```
+```sh
 md-indexer [OPTIONS] --input <INPUT> --output <OUTPUT> --size <SIZE>
 ```
 
@@ -55,3 +55,55 @@ Options:
 Date string in RFC3339.
 
 Documents will be sorted by date in descending order. If `date` does not exist, the document will be pinned.
+
+## Actions Example
+
+This workflow config will generate static API for Markdown documents located in the `./data` directory, and upload them to GitHub Pages.
+
+```yaml
+name: Deploy static API to Pages
+
+on:
+  push:
+    branches: ['main']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Download md-indexer
+        # WARNING: This will download the latest development build!
+        run: wget "https://github.com/Zhousiru/md-indexer/releases/download/latest/md-indexer" && chmod +x md-indexer
+
+      - name: Generate static API
+        # Output to same path.
+        run: ./md-indexer -i data -o data --size 20 --with-summary
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: './data'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+```
